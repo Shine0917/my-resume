@@ -20,6 +20,52 @@ module.exports = {
     path:path.resolve(__dirname, './../dist')
   },
   resolve:{
+    extensions:['.js','.jsx'],
+    alias: {
+      "@": path.resolve(__dirname, '../src')
+    },
+    modules: [
+      "node_modules",
+      path.resolve(__dirname,'src')
+    ]
+  },
+  module: {
+    rules: [
+      {
+        test:/\.(sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
+        ]
+      },
+      {
+        test:/\.(png|jpg|gif|jpeg)$/,
+        loader:'file-loader',
+        options: {
+          name: '[hash].[ext]',
+          outputPath: './img',
+          esModule: false
+        }
+      },
+      {
+        test: /\.jsx?$/,
+        use: 'babel-loader?cacheDirectory'
+    },
+    ]
+  },
+  pulgins:[
+    ...pages,
+    getHtml('index.html',['app'],'src/index.html','首页-简历自动生成',{pageNames:pages.map(page => page.userOptions.title)}),
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename:'css/[name]-[contenthash:8].css',
+      chunkFilename:'css/[id]-[contenthash:8].css'
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin({
+      patterns:[{from:'public'}]
+    }),
     
-  }
+  ]
 }

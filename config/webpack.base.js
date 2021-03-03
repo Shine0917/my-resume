@@ -54,7 +54,7 @@ module.exports = {
     },
     ]
   },
-  pulgins:[
+  plugins:[
     ...pages,
     getHtml('index.html',['app'],'src/index.html','首页-简历自动生成',{pageNames:pages.map(page => page.userOptions.title)}),
     new CleanWebpackPlugin(),

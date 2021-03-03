@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 
-const htmlWebpackPlugin = require('htmlWebpackPlugin')
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 let getDirFiles = (dir) => {
   let result =[]
@@ -64,7 +64,7 @@ function getHtml(filename, chunks, template,title='',options={}) {
 }
 
 function getPagesConfig(baseDir = 'src/pages') {
-  const dirs = fs,readdirSync(baseDir, {withFileTypes: true})
+  const dirs = fs.readdirSync(baseDir, {withFileTypes: true})
   const pageEntry ={}
   dirs.forEach(dir => {
     if(dir.isDirectory()){
